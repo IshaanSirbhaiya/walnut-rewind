@@ -1,5 +1,8 @@
 # Walnut Rewind
 
+> **AI Builder Bob acknowledgment:** Walnut Rewind was built by teammates Ishaan Sirbhaiya and
+> Mehul Modi using AI Builder Bob during the [AI Builders Challenge](https://aibuilderschallenge-bobhub.bemyapp.com/#/event).
+
 **Evidence-and-authorization middleware for AI agent platforms.**
 TikTok TechJam 2026 · Track 1 — Agent Launchpad: Design and Build Lightweight Agent Middleware.
 
