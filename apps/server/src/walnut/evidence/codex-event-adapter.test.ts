@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -10,6 +11,11 @@ const FIXTURE_PATH = fileURLToPath(
   new URL("../../../../../results/p0-5-real-codex-jsonl.sanitized.ndjson", import.meta.url),
 );
 
+// The capture is deliberately untracked (results/**/*.ndjson is gitignored so raw model
+// transcripts never ship); on machines that hold the capture this test pins all 12
+// classifications, on fresh clones it skips rather than failing the suite.
+const fixtureExists = existsSync(FIXTURE_PATH);
+
 async function loadFixtureLines(): Promise<Array<Record<string, unknown>>> {
   const raw = await readFile(FIXTURE_PATH, "utf8");
   return raw
@@ -19,7 +25,7 @@ async function loadFixtureLines(): Promise<Array<Record<string, unknown>>> {
 }
 
 describe("classifyCodexEvent — real sanitized Codex JSONL fixture (12 lines)", () => {
-  it("classifies every line in the fixture exactly as pinned", async () => {
+  it.skipIf(!fixtureExists)("classifies every line in the fixture exactly as pinned", async () => {
     const lines = await loadFixtureLines();
     expect(lines).toHaveLength(12);
 

@@ -335,9 +335,11 @@ thesis: fake runtime → capsule with authorized + denied-canary evidence → or
 chain → compromise → blast radius → TAINTED → reconcile → RECOVERED_BY. Current counts are in
 the CI gate output; at submission time: see `results/p3-final-check.md`.
 
-**Platform note:** the suite targets POSIX (macOS/Linux). On Windows, 7 of 233 tests fail for
+**Platform note:** the suite targets POSIX (macOS/Linux). On Windows, 6 of 233 tests fail for
 environment reasons only — shell-script spawn fixtures Windows cannot exec, one POSIX-path mount
-assertion, and a symlink fixture that needs elevated privileges — not product defects.
+assertion, and a symlink fixture that needs elevated privileges — not product defects. One
+further test (the pinned real-JSONL classification) skips wherever the deliberately untracked
+sanitized capture is absent, rather than failing the suite.
 
 ## 13. Failure cases (by design)
 
