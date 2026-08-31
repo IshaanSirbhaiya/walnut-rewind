@@ -5,7 +5,7 @@
 > We used IBM Bob as an AI-assisted software-engineering partner during the project's development.
 
 **Evidence-and-authorization middleware for AI agent platforms.**
-TikTok TechJam 2026 · Track 1 — Agent Launchpad: Design and Build Lightweight Agent Middleware.
+AI Builders Challenge with IBM Bob · **Wild Card Challenge — Intelligent Systems for the Future of Work** · August 2026.
 
 Built on the pristine [Volc Agent Launchpad starter kit](docs/UPSTREAM-README.md) (tag
 `starter-kit-baseline`); everything Walnut adds is visible as `git diff starter-kit-baseline`.
@@ -43,7 +43,42 @@ runtime dependency of Walnut Rewind.
 
 ---
 
-## 1. Problem
+## Selected challenge theme
+
+**Wild Card Challenge — Intelligent Systems for the Future of Work.**
+
+Walnut Rewind is built for teams whose colleagues are increasingly AI agents. It gives those AI
+co-workers **role-scoped knowledge** (an agent sees only what its role and its delegating human
+permit — decided *before* the prompt is assembled, not requested politely inside it), gives the
+team a **decision record it can audit and trust** (every claim carries its source, byte-verified,
+in an append-only hash-chained history), and gives the organization **outcome recovery**: when a
+fact changes or a source turns out to be compromised, the dependency graph shows exactly which
+decisions and deliverables were built on it, and Rewind rebuilds only the work actually affected —
+not the whole project. That is the challenge brief's ask — better decisions, faster outcomes,
+trustworthy automation — applied to the layer underneath every agent workflow: what the agent is
+allowed to know.
+
+## Solution description
+
+Walnut Rewind is middleware that sits between an agent platform's control plane and its model
+runtime. Before every run it builds a **Context Capsule** — an immutable, hashed snapshot of
+exactly the evidence that run is permitted to consume: think *`package-lock.json` for what an
+agent knows*. Authorization runs **before context construction** (a rule written inside a prompt
+is not a control — the model has already read it), and every ALLOW/DENY decision is recorded
+durably with the policy revision that produced it.
+
+Around that primitive sit four planes, all lightweight native TypeScript: a **context** plane
+(capsule builder, byte-exact citation verifier, conflict detector, agent-to-agent share), an
+**auth** plane (grants + a deterministic two-leg evaluator: agent ∩ delegating human), an
+**evidence** plane (redact-before-persist, append-only hash-chained ledger, proof-carrying
+claims), and a **dependency** plane (blast radius, run state, selective reconciliation). When a
+belief turns out to be wrong, **Rewind** taints exactly the downstream work, mints a new run
+linked `RECOVERED_BY`, and never rewrites history. The result, in Future-of-Work terms: AI
+co-workers that only see what their role permits, decisions a team can audit, and recovery that
+redoes only what a changed fact actually touched. Sections 1–9 below give the full technical
+story; §10 is a judge-runnable setup with no API key required.
+
+## 1. Problem statement
 
 Agent platforms can tell you *what an agent did* — the commands it ran, the files it changed.
 They cannot tell you **what the agent was allowed to know, why it believed what it believed, who
@@ -67,7 +102,17 @@ knowledge store is how one agent's hallucination becomes every agent's ground tr
 > know, why it believed it, who inherited that belief, and what must be rebuilt when the belief
 > becomes wrong.**
 
-## 4. Architecture
+## 4. AI approach and architecture
+
+AI is a core functional component on both sides of the trust boundary. The **governed side**:
+agents plan and execute real work through the starter kit's Codex CLI runtime (OpenAI-compatible
+Responses API against BytePlus Ark model endpoints — any `ep-…` endpoint works; the demo was
+rehearsed on a live Ark endpoint, `results/p3-demo-rehearsal.md`), propose typed evidence with
+citations, and stream JSONL runtime events. The **governing side** is deliberately deterministic
+TypeScript — authorization, byte-exact citation verification, hash chains, dependency projection —
+so that every claim about what an AI co-worker knew or did is checkable evidence, not model prose.
+IBM Bob was the AI engineering partner used to design and build that governing layer (see *How we
+used IBM Bob* above).
 
 ```
 React UI ──► Fastify control plane ──► AgentService ──────────► Codex runner (container)
@@ -88,7 +133,7 @@ React UI ──► Fastify control plane ──► AgentService ─────�
 
 ### 4.1 Trust boundary, enforcement, instrumentation, recovery (the one-page diagram)
 
-The Track-1 deliverable asks the diagram to mark the **trust boundary** and the
+The one-page diagram marks the **trust boundary** and the
 enforcement/instrumentation/recovery points explicitly. The boundary is a *data* trust
 boundary: everything the model or its workspace produces is untrusted **input** until the
 middleware verifies it — we do not claim the container is a hardened sandbox (§15).
@@ -225,6 +270,27 @@ resolves silently: capsule construction refuses with a typed `ClarificationReque
 
 ## 10. Setup
 
+### Judge quickstart — no API key, no container engine
+
+The full "Launch Control Incident" scenario can be staged offline through the production
+middleware modules (real capsules, real hash chains, real authorization decisions — no model
+calls, no mocks in the store), then explored in the UI with the guided tour:
+
+```bash
+npm install
+npm run build
+node apps/server/dist/index.js &          # serves web + API on http://localhost:3000
+./scripts/walnut-demo-seed.sh             # agents, grants, workspace fixtures (no model calls)
+node scripts/walnut-demo-mint-runs.mjs    # stages the full scenario through the real services
+# restart the server (the running instance caches store state):
+kill %1 && node apps/server/dist/index.js &
+```
+
+Open `http://localhost:3000`, click **Show me around**, and the guided tour walks all four
+Walnut tabs against the staged scenario. Requirements: Node ≥ 22, npm ≥ 10.
+
+### Live-model setup (full path)
+
 ```bash
 npm install
 cp .env.example .env    # if absent, create .env with the two vars below
@@ -241,12 +307,13 @@ cloud resource is required (HC-9).
 ## 11. Demo
 
 The frozen scenario contract is **`demo/SCENARIO.md` — "Launch Control Incident"** (all 23
-capabilities mapped to story beats, with the TechJam rubric fit; jointly agreed by both build
+capabilities mapped to story beats, with judging-criteria fit; jointly agreed by both build
 agents). `demo/DEMO-SCRIPT.md` is the 3-minute stage cut of it; `scripts/walnut-demo-seed.sh`
-seeds the demo agents. The script's **backend path was rehearsed end-to-end on 2026-08-28** and every
+seeds the demo agents. The **backend path was rehearsed end-to-end on 2026-08-28** and every
 beat passed (`results/p3-demo-rehearsal.md`); that rehearsal was driven through the HTTP API.
-**The live UI has still never been driven**, so the visual pass remains a blocking item on
-`coordination/gates/gate-P3-joint.md`.
+The **visual pass through the live UI was completed on 2026-08-31** — welcome screen, guided
+tour with live-verified step conditions, create-agent flow, and the Walnut drawer, all rendered
+against the staged scenario.
 
 Short version: a Research Agent publishes a byte-verified claim through the outbox; a Strategy
 Agent's capsule receives it under a grant while the payroll claim (carrying a planted canary)
@@ -267,6 +334,10 @@ canary battery, and `walnut/e2e.test.ts` — the single end-to-end test that wal
 thesis: fake runtime → capsule with authorized + denied-canary evidence → ordered redacted
 chain → compromise → blast radius → TAINTED → reconcile → RECOVERED_BY. Current counts are in
 the CI gate output; at submission time: see `results/p3-final-check.md`.
+
+**Platform note:** the suite targets POSIX (macOS/Linux). On Windows, 7 of 233 tests fail for
+environment reasons only — shell-script spawn fixtures Windows cannot exec, one POSIX-path mount
+assertion, and a symlink fixture that needs elevated privileges — not product defects.
 
 ## 13. Failure cases (by design)
 
@@ -323,14 +394,14 @@ richer temporal storage. None are dependencies of this POC.
 ## 17. No-secrets statement
 
 The `ARK_API_KEY` credential has never existed in this repository, its git history, its test
-fixtures, its ledger records, or its demo output — verified by `git grep -F` over the tracked
-tree and `git log -S` over the full history against the configured value. Credentials live only
-in the gitignored `.env`. One caveat, stated plainly rather than averaged away: the `ARK_MODEL`
-**endpoint identifier** (not a usable credential on its own — it authenticates nothing without
-the API key) still exists in **two historical commits**; it was redacted from the tracked tree
-the day it was found and its history scrub is a mandatory blocking item before this repository
-goes public (tracked in `coordination/gates/gate-P0-joint.md`). The pre-submission sweep also
-greps tree and history for every planted canary literal.
+fixtures, its ledger records, or its demo output. Credentials live only in the gitignored
+`.env`; `git ls-files` tracks `.env.example` and nothing else env-shaped. This public repository
+was published as a **fresh, squashed history** precisely so that no artifact of the private
+development history (including the `ARK_MODEL` endpoint identifier that once appeared in two
+private-repo commits — not a usable credential on its own, but scrubbed on principle) could
+carry over. The sweep was re-run at submission time over the tracked tree and the full public
+history: no key material, no real endpoint identifier — only documented placeholders and the
+redactor's deliberately planted canary literals in its own tests.
 
 ## 18. Feature-relevance map (reproducibility appendix)
 
@@ -367,7 +438,7 @@ feature count. Feature numbers follow `docs/walnut/00-START-HERE.md`; invariant 
 | F22 | Clarification-first conflict handling | silently picking between contradictions | conflict-blocked run: typed question in `run.error`, open request at `/api/walnut/clarifications` — the request stays OPEN (no resolve route in v1, stated plainly) (B2) | `context/conflict-detector.test.ts`, `capsule.test.ts` (INV-22) |
 | F23 | Evidence pack / offline verification | — | **absent** — cut per priority ladder; not stubbed | none claimed |
 
-### Optional-evidence checklist (Track-1 brief §1.10)
+### Additional-evidence checklist
 
 - ✅ **Delegated permission scoped/revocable, enforced outside the UI** — the B3 share kicker:
   a scoped permission enforced in the real two-leg evaluator with no browser involved.

@@ -75,7 +75,7 @@ BLAST RADIUS → REWIND → TAMPER-EVIDENT — each naming the practical questio
 pointing at the live Walnut tab/action. **Constraint (truthfulness rule): it renders live values
 for the selected run and never fakes completion**; industrial visual language intact.
 
-## Fit to the TechJam brief (Mehul 2026-08-28: *"make sure you account the hackathon criteria and just waht the genereal techjam requirements or expectations are"*)
+## Fit to the judging brief (Mehul 2026-08-28: *"make sure you account the hackathon criteria and just waht the genereal techjam requirements or expectations are"*)
 
 Sources: `brief/TikTok_TechJam_2026_Tracks_and_Problem_Statements.pdf` §§1.9–1.12 and
 `docs/walnut/06-IMPLEMENTATION-TEST-DEMO-PLAN.md` §10.
