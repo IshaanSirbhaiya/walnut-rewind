@@ -1,13 +1,16 @@
-# Walnut Rewind — 3-minute demo script
+# Walnut Rewind — 3-minute stage script (live-model path)
 
-Written for the local container path (`npm run poc`, Colima). Every number and artifact shown is
-produced live; nothing is mocked on stage. Budget: one Research model run + one Strategy model
-run + one reconcile run (~110k Ark tokens measured); everything else is API/UI only.
+Written for the local container path (`npm run poc`, Colima) **with a configured Ark model**:
+on that path every number and artifact shown is produced live; nothing is mocked on stage.
+Budget: one Research model run + one Strategy model run + one reconcile run (~110k Ark tokens
+measured); everything else is API/UI only. (The shipped 2-minute video in
+`demo/walnut-rewind-demo.mp4` was instead recorded against the offline-staged scenario —
+README §10 judge quickstart — real store, hashes, and decisions from the production modules,
+no model calls.)
 
 **Rehearsal status.** The backend path was rehearsed end-to-end on 2026-08-28 and every beat
 below passed — evidence: `results/p3-demo-rehearsal.md`. That rehearsal was driven through the
-HTTP API. **The live UI has still never been driven**, so the visual pass remains a blocking
-item on `coordination/gates/gate-P3-joint.md`.
+HTTP API. The visual pass through the live UI was completed on 2026-08-31.
 
 ## Pre-flight — do all four, in order (each one comes from a real rehearsal failure)
 

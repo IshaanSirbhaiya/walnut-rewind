@@ -12,7 +12,7 @@ Built on the pristine [Volc Agent Launchpad starter kit](docs/UPSTREAM-README.md
 
 ---
 
-## How we used IBM Bob
+## How IBM Bob was used
 
 We used IBM Bob throughout the engineering workflow, not merely to generate a final code snippet.
 The team supplied the product goals, starter-kit context, security constraints, and review feedback;
@@ -111,8 +111,8 @@ rehearsed on a live Ark endpoint, `results/p3-demo-rehearsal.md`), propose typed
 citations, and stream JSONL runtime events. The **governing side** is deliberately deterministic
 TypeScript — authorization, byte-exact citation verification, hash chains, dependency projection —
 so that every claim about what an AI co-worker knew or did is checkable evidence, not model prose.
-IBM Bob was the AI engineering partner used to design and build that governing layer (see *How we
-used IBM Bob* above).
+IBM Bob was the AI engineering partner used to design and build that governing layer (see *How
+IBM Bob was used* above).
 
 ```
 React UI ──► Fastify control plane ──► AgentService ──────────► Codex runner (container)
@@ -309,12 +309,17 @@ cloud resource is required (HC-9).
 **▶ 2-minute demo video:** [`demo/walnut-rewind-demo.mp4`](demo/walnut-rewind-demo.mp4) — the
 guided tour, a sealed capsule with its authorization decisions, byte-verified evidence, the
 compromise → blast-radius → taint arc, selective Rewind recovery, and a live chain verification,
-narrated over the staged Launch Control Incident.
+narrated over the staged Launch Control Incident. Stated plainly: the video was recorded against
+the **offline-staged** scenario (README §10 judge quickstart — real store, real hashes, real
+decisions from the production modules, no model calls). The live-model path's end-to-end
+rehearsal evidence is `results/p3-demo-rehearsal.md`.
 
 The frozen scenario contract is **`demo/SCENARIO.md` — "Launch Control Incident"** (all 23
 capabilities mapped to story beats, with judging-criteria fit; jointly agreed by both build
 agents). `demo/DEMO-SCRIPT.md` is the 3-minute stage cut of it; `scripts/walnut-demo-seed.sh`
-seeds the demo agents. The **backend path was rehearsed end-to-end on 2026-08-28** and every
+seeds the demo agents (`demo/DEMO-SCRIPT.md` is the 3-minute stage plan for the live-model
+path; the shipped video is the 2-minute offline cut). The **backend path was rehearsed
+end-to-end on 2026-08-28** and every
 beat passed (`results/p3-demo-rehearsal.md`); that rehearsal was driven through the HTTP API.
 The **visual pass through the live UI was completed on 2026-08-31** — welcome screen, guided
 tour with live-verified step conditions, create-agent flow, and the Walnut drawer, all rendered
@@ -333,12 +338,16 @@ npm run check                        # typecheck (server + web) + all server tes
 npm run test -w @launchpad/server    # server tests only
 ```
 
-The suite includes per-invariant tests (INV-1…INV-22 mapped in
-`docs/walnut/06-IMPLEMENTATION-TEST-DEMO-PLAN.md` §6), the ledger tamper matrix, the redactor
-canary battery, and `walnut/e2e.test.ts` — the single end-to-end test that walks the full
-thesis: fake runtime → capsule with authorized + denied-canary evidence → ordered redacted
-chain → compromise → blast radius → TAINTED → reconcile → RECOVERED_BY. Current counts are in
-the CI gate output; at submission time: see `results/p3-final-check.md`.
+The suite includes per-invariant tests (invariants mapped in
+`docs/walnut/06-IMPLEMENTATION-TEST-DEMO-PLAN.md` §6 — INV-1…INV-19 and INV-22 carry
+individually tagged tests; INV-20's substance is asserted untagged in the authorization suite;
+INV-21 is documented but has no dedicated test), the ledger tamper matrix, the redactor canary
+battery, and `walnut/e2e.test.ts` — the single end-to-end test that walks the full thesis: fake
+runtime → capsule with authorized + denied-canary evidence → ordered redacted chain →
+compromise → blast radius → TAINTED → reconcile → RECOVERED_BY. Count at submission, from a
+live run: **27 test files / 233 tests**. (`results/p3-final-check.md` is the earlier
+pre-publication gate record from the private development history; its 215-test figure predates
+the final test additions.)
 
 **Platform note:** the suite targets POSIX (macOS/Linux). On Windows, 6 of 233 tests fail for
 environment reasons only — shell-script spawn fixtures Windows cannot exec, one POSIX-path mount
@@ -413,8 +422,8 @@ redactor's deliberately planted canary literals in its own tests.
 ## 18. Feature-relevance map (reproducibility appendix)
 
 The frozen demo scenario is `demo/SCENARIO.md` — **"Launch Control Incident"** (beats B0–B7,
-jointly agreed by both build agents with the negotiation on record in `coordination/CHANNEL.md`
-A-025…B-021). This table answers *"why is each capability useful, and where is it proven?"* —
+jointly agreed by both build agents; the negotiation lives in internal working notes that are
+not part of this published repository). This table answers *"why is each capability useful, and where is it proven?"* —
 it is a reproducibility index, not a scorecard; depth and coherence carry this submission, not
 feature count. Feature numbers follow `docs/walnut/00-START-HERE.md`; invariant numbers follow
 `docs/walnut/06-IMPLEMENTATION-TEST-DEMO-PLAN.md` §6.
