@@ -1,13 +1,45 @@
 # Walnut Rewind
 
-> **AI Builder Bob acknowledgment:** Walnut Rewind was built by teammates Ishaan Sirbhaiya and
-> Mehul Modi using AI Builder Bob during the [AI Builders Challenge](https://aibuilderschallenge-bobhub.bemyapp.com/#/event).
+> **Built with IBM Bob:** Walnut Rewind was created by teammates Ishaan Sirbhaiya and Mehul Modi
+> for the [AI Builders Challenge with IBM Bob](https://aibuilderschallenge-bobhub.bemyapp.com/#/event).
+> We used IBM Bob as an AI-assisted software-engineering partner during the project's development.
 
 **Evidence-and-authorization middleware for AI agent platforms.**
 TikTok TechJam 2026 · Track 1 — Agent Launchpad: Design and Build Lightweight Agent Middleware.
 
 Built on the pristine [Volc Agent Launchpad starter kit](docs/UPSTREAM-README.md) (tag
 `starter-kit-baseline`); everything Walnut adds is visible as `git diff starter-kit-baseline`.
+
+---
+
+## How we used IBM Bob
+
+We used IBM Bob throughout the engineering workflow, not merely to generate a final code snippet.
+The team supplied the product goals, starter-kit context, security constraints, and review feedback;
+Bob helped us explore the problem, turn decisions into an implementation plan, draft and refine
+changes, and reason through failure cases. Ishaan and Mehul retained ownership of the design,
+reviewed the work, and validated the integrated result.
+
+| Development stage | How IBM Bob helped | Concrete result in this repository |
+|---|---|---|
+| **Context and problem framing** | We used Bob to examine where an agent platform loses trustworthy context: authorization normally happens too late, claims can be detached from sources, and a bad belief can silently propagate. Bob helped us narrow those concerns into one thesis: governed, versioned, reversible agent context. | The problem statement and thesis below, plus [`docs/walnut/00-START-HERE.md`](docs/walnut/00-START-HERE.md) and [`docs/walnut/01-PRODUCT-AND-FEATURE-SPEC.md`](docs/walnut/01-PRODUCT-AND-FEATURE-SPEC.md). |
+| **Architecture and planning** | We used Bob to compare implementation choices, identify the starter kit's integration seams, and break the system into context, evidence, dependency, API, and UI work. The design sessions produced explicit decisions such as authorizing evidence before prompt construction, exact citation matching, append-only history, and creating a new Run for recovery instead of rewriting the old one. | [`docs/walnut/02-ARCHITECTURE.md`](docs/walnut/02-ARCHITECTURE.md), [`docs/walnut/03-STARTER-KIT-INTEGRATION.md`](docs/walnut/03-STARTER-KIT-INTEGRATION.md), and the locked decisions in [`docs/walnut/07-SOURCE-BASIS-AND-DECISION-LOG.md`](docs/walnut/07-SOURCE-BASIS-AND-DECISION-LOG.md). |
+| **Building the middleware** | Bob assisted with tracing the existing TypeScript services and runners, proposing code changes, refining data shapes, and working through integration details. We used that assistance while implementing Context Capsules, two-leg authorization, proof-carrying evidence, runtime event capture, redaction, the hash-chained ledger, dependency projection, blast-radius analysis, reconciliation, REST routes, and the Walnut UI. | The backend under [`apps/server/src/walnut/`](apps/server/src/walnut/), its integration with `AgentService` and both runners, and the React panels under [`apps/web/src/walnut/`](apps/web/src/walnut/). |
+| **Testing, debugging, and hardening** | We used Bob to turn security claims into falsifiable tests and to reason about edge cases discovered during implementation. Examples include a denied-data canary that must never enter the prompt, byte-exact citation checks, unknown or malformed runtime events, redact-before-persist failures, ledger modification/deletion/insertion/reordering, source drift, authorization expiry, and reconciliation of tainted Runs. Suggestions were not accepted on confidence alone: the team ran the automated checks and live smoke flows. | The invariant-focused `*.test.ts` files, [`apps/server/src/walnut/e2e.test.ts`](apps/server/src/walnut/e2e.test.ts), and the captured evidence in [`results/`](results/). |
+| **Demo and communication** | Bob helped us convert a large feature set into the three-minute “Launch Control Incident” story, connect each story beat to an API/UI proof point, refine setup instructions, and state limitations without overstating the security boundary. | [`demo/SCENARIO.md`](demo/SCENARIO.md), [`demo/DEMO-SCRIPT.md`](demo/DEMO-SCRIPT.md), [`demo/FULL-WALKTHROUGH.md`](demo/FULL-WALKTHROUGH.md), and the feature-relevance map in this README. |
+
+Our recurring workflow was: give Bob a bounded problem and the relevant repository context; ask it
+for alternatives, a patch, or adversarial test cases; review the proposal against the locked
+architecture; integrate the useful parts; run type checks, tests, builds, and smoke scenarios; then
+feed concrete failures back into the next iteration. Bob accelerated exploration and implementation,
+while evidence from deterministic code and executable tests remained the acceptance criterion.
+
+**Why some artifacts mention Claude or Codex:** those names identify the tool that executed a
+particular implementation or verification run, and Codex is also the model runtime inside the
+starter kit. They are execution-provenance records, not a complete inventory of development tools.
+Their presence does not mean IBM Bob was absent: IBM Bob was used by Ishaan and Mehul during the
+development stages documented above. IBM Bob is a development tool for this submission, not a
+runtime dependency of Walnut Rewind.
 
 ---
 
