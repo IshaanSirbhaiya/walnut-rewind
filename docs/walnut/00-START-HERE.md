@@ -8,7 +8,7 @@ This is **not** the narrowed presentation-only version.
 
 The implementation target is the broader integrated system combining the strongest parts of:
 
-- Walnut/DataBridge's evidence architecture,
+- Walnut's internal evidence-architecture design work,
 - the earlier **Walnut Relay** concept,
 - the later **Walnut Rewind** concept,
 - the attached **ProofGraph Middleware** blueprint,
@@ -316,7 +316,7 @@ Do not introduce these unless there is a very strong reason:
 - gVisor
 - Wasmtime
 - full production OAuth
-- full DataBridge Company Brain
+- the full internal company-brain system
 - general-purpose policy language
 - enterprise connector plane
 - production PII detection ensemble

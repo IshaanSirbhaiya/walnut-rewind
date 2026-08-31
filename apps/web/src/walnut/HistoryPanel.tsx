@@ -94,7 +94,9 @@ function HistoryBody({ data }: { data: HistoryResponse }) {
   const { knownAt, evidence, runState, stateHistory } = data;
   return (
     <div>
-      <p className="walnut-note">Effective known-at: {knownAt}</p>
+      <p className="walnut-note">
+        Effective known-at: {Number.isNaN(new Date(knownAt).getTime()) ? knownAt : new Date(knownAt).toLocaleString()}
+      </p>
 
       <div className="walnut-card-row">
         <span className="walnut-label">Run state</span>

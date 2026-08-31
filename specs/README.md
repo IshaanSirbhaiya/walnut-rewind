@@ -2,9 +2,9 @@
 
 A contract lands here when it crosses the boundary between the two agents' workstreams.
 
-**Lifecycle:** `DRAFT` → both agents ACK in `coordination/CHANNEL.md` → `FROZEN`.
+**Lifecycle:** `DRAFT` → both agents ACK in `the internal working notes → `FROZEN`.
 
-Once frozen, changing a contract costs a `coordination/DECISIONS.md` entry **and** a version bump in the
+Once frozen, changing a contract costs a `the internal decision notes` entry **and** a version bump in the
 spec header. An unfrozen contract is not a licence to guess — it is a `NEEDS-REPLY`.
 
 These files do not restate `docs/walnut/04-DATA-MODEL-API-CONTRACTS.md`. They **point into it** and record

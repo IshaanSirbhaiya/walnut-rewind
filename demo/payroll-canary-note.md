@@ -5,7 +5,7 @@ claim (HC-5, INV-2) is checked mechanically rather than asserted:
 
     WALNUT_CANARY_DENIED_PAYROLL_93c1e7
 
-Origin: `coordination/CHANNEL.md` A-008/B-003 (ACKed 2026-08-27) — chosen to be unique,
+Origin: `the internal working notes A-008/B-003 (ACKed 2026-08-27) — chosen to be unique,
 greppable, and carrying no secret semantics of its own (it exercises the *authorization*
 boundary, not the redactor's secret-detection heuristics; those have their own four literals,
 tracked separately in the evidence-runtime workstream's redactor tests).

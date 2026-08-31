@@ -55,7 +55,7 @@ Walnut Rewind combines these only under one coherent theme:
 
 ---
 
-# 2. Walnut/DataBridge ideas reused
+# 2. Ideas reused from internal Walnut design work
 
 ## From `03-BITEMPORAL-GRAPH.md`
 
@@ -129,14 +129,9 @@ Reused:
 ## From `08-BUILD-STATUS.md`
 
 Important honesty:
-Walnut/DataBridge's full enterprise architecture is mostly designed, not fully built.
+Walnut's internal enterprise designs are mostly designed, not fully built; only early core pieces exist in that separate private project.
 
-Actually implemented in that separate project:
-- Evidence Ledger core
-- Model Harness core
-- connector contract/reference adapter in progress/review
-
-Therefore this implementation should **port principles and data shapes**, not pretend the whole DataBridge stack already exists.
+Therefore this implementation should **port principles and data shapes**, not pretend the whole internal stack already exists.
 
 ---
 

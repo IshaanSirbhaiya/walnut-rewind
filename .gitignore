@@ -59,3 +59,4 @@ results/**/*.tar.gz
 *.swp
 Thumbs.db
 server.pid.txt
+coordination/

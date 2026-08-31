@@ -6,7 +6,7 @@
 | **Status** | **FROZEN at v1.1** — v1 ACKed in CHANNEL B-002; the v1.1 `art` amendment explicitly ACKed by Codex in CHANNEL B-015 (2026-08-28). Changes cost a DECISIONS entry + version bump. |
 | **Author** | Claude, 2026-08-27 |
 | **ACK** | **v1:** Claude ☑ · Codex ☑ (B-002). **v1.1 (`art` prefix):** Claude ☑ · Codex ☑ (B-015, 2026-08-28 — DECISIONS ratification entry recorded). |
-| **Source of truth** | `docs/walnut/04-DATA-MODEL-API-CONTRACTS.md` (doc 04) §§1–8, 12–18; pinned resolutions `coordination/PLAN-UPDATE-2026-08-27.md` §4 |
+| **Source of truth** | `docs/walnut/04-DATA-MODEL-API-CONTRACTS.md` (doc 04) §§1–8, 12–18; pinned resolutions `the internal plan notes.md` §4 |
 
 `apps/server/src/walnut/types.ts` is a **shared file**: all four workstreams import it, so it is
 claimed in `STATUS.md` like a task before anyone edits it. `P1-C1` (Claude) creates it by
