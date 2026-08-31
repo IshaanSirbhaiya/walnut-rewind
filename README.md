@@ -280,18 +280,25 @@ The full "Launch Control Incident" scenario can be staged offline through the pr
 middleware modules (real capsules, real hash chains, real authorization decisions — no model
 calls, no mocks in the store), then explored in the UI with the guided tour:
 
+Run in a POSIX shell (macOS/Linux; on Windows use Git Bash). The exports matter — they keep the
+server, the seed, and the staging script pointed at the same store:
+
 ```bash
 npm install
 npm run build
+export APP_DATA_DIR="$PWD/.local/data" AGENT_WORKSPACE_ROOT="$PWD/.local/workspaces"
+export HOST=127.0.0.1 PORT=3000 WALNUT_DEMO_BASE_URL=http://127.0.0.1:3000
 node apps/server/dist/index.js &          # serves web + API on http://localhost:3000
-./scripts/walnut-demo-seed.sh             # agents, grants, workspace fixtures (no model calls)
+SERVER_PID=$!
+sleep 2 && ./scripts/walnut-demo-seed.sh  # agents, grants, workspace fixtures (no model calls)
 node scripts/walnut-demo-mint-runs.mjs    # stages the full scenario through the real services
-# restart the server (the running instance caches store state):
-kill %1 && node apps/server/dist/index.js &
+kill $SERVER_PID                          # restart — the running server caches store state
+node apps/server/dist/index.js &
 ```
 
 Open `http://localhost:3000`, click **Show me around**, and the guided tour walks all four
-Walnut tabs against the staged scenario. Requirements: Node ≥ 22, npm ≥ 10.
+Walnut tabs against the staged scenario. `node scripts/walnut-demo-mint-runs.mjs --verify`
+recomputes the staged state's 28 integrity checks. Requirements: Node ≥ 22, npm ≥ 10.
 
 ### Live-model setup (full path)
 

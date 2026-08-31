@@ -58,3 +58,4 @@ results/**/*.tar.gz
 .vscode/
 *.swp
 Thumbs.db
+server.pid.txt

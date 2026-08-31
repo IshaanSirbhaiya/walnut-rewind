@@ -122,7 +122,7 @@ OPTIONS
   --research-workspace <path> Per-agent workspace overrides. Default: <workspace-root>/<agentId>
   --strategy-workspace <path>
   --comms-workspace <path>
-  --base-url <url>            Agent-discovery base URL. Default: http://127.0.0.1:3000
+  --base-url <url>            Agent-discovery base URL. Default: $WALNUT_DEMO_BASE_URL or http://127.0.0.1:3000
   --auth-token <token>        Bearer token for discovery, if APP_AUTH_TOKEN is set
   --skip-sidecars             Do not stage the healthy "October 15" + pricing-supersede chain
   --verify                    Verify an already-minted store and print the id table; mints nothing
@@ -1340,7 +1340,7 @@ async function main() {
 
   const dataDirectory = path.resolve(option("--data-directory") ?? defaultDataDirectory());
   const workspaceRoot = path.resolve(option("--workspace-root") ?? defaultWorkspaceRoot());
-  const baseUrl = option("--base-url") ?? "http://127.0.0.1:3000";
+  const baseUrl = option("--base-url") ?? process.env.WALNUT_DEMO_BASE_URL ?? "http://127.0.0.1:3000";
   const authToken = option("--auth-token") ?? process.env.WALNUT_DEMO_AUTH_TOKEN ?? process.env.APP_AUTH_TOKEN ?? "";
   const wantsJson = flag("--json");
 
