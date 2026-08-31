@@ -306,6 +306,11 @@ cloud resource is required (HC-9).
 
 ## 11. Demo
 
+**▶ 2-minute demo video:** [`demo/walnut-rewind-demo.mp4`](demo/walnut-rewind-demo.mp4) — the
+guided tour, a sealed capsule with its authorization decisions, byte-verified evidence, the
+compromise → blast-radius → taint arc, selective Rewind recovery, and a live chain verification,
+narrated over the staged Launch Control Incident.
+
 The frozen scenario contract is **`demo/SCENARIO.md` — "Launch Control Incident"** (all 23
 capabilities mapped to story beats, with judging-criteria fit; jointly agreed by both build
 agents). `demo/DEMO-SCRIPT.md` is the 3-minute stage cut of it; `scripts/walnut-demo-seed.sh`

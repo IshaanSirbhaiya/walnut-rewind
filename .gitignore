@@ -46,6 +46,8 @@ results/**/*.tar.gz
 *.mov
 *.mp4
 *.webm
+# Exception: the challenge submission requires a publicly accessible demo video.
+!demo/walnut-rewind-demo.mp4
 
 # ── Agent/runtime scratch ──────────────────────────────────────────────────────
 .walnut/tmp/
