@@ -22,6 +22,12 @@
 // the tell that it was staged by this script, not executed against Ark. Do not narrate token
 // counts for these runs.
 //
+// ATTRIBUTION CHOICE (stated plainly): the Tier-2 sidecar evidence (the Oct-15 conflict claim
+// and the pricing supersession) is attributed to producerRunId = R1 and appended to R1's chain
+// after its run.completed event, so the dependency graph carries real PRODUCED edges instead of
+// the upstream fixture's orphan producer UUID. Like everything here, that is staged demo state:
+// R1 did not "really" propose those claims during a model run — nothing in this store did.
+//
 // WHAT IT MINTS (see demo/SCENARIO.md beats B1, B3, B4, B5, B6)
 // ------------------------------------------------------------
 //   R1  Research Agent   COMPLETED  2 evidence accepted + citation-VERIFIED, 1 proposal
@@ -60,7 +66,9 @@
 // RESET / RESEED ORDER
 // --------------------
 //   1. stop the server
-//   2. rm -rf .local/data .local/workspaces          # disposable demo state
+//   2. rm -rf .local/data .local/workspaces          # disposable demo state — if you override
+//      APP_DATA_DIR / AGENT_WORKSPACE_ROOT (or run on macOS defaults), reset THOSE paths instead;
+//      the resolved locations are printed at startup
 //   3. npm run build                                 # apps/server/dist must exist
 //   4. start the server (npm run poc), wait for /api/health
 //   5. ./scripts/walnut-demo-seed.sh                 # agents + workspaces + grants, no model cost

@@ -292,7 +292,7 @@ node apps/server/dist/index.js &          # serves web + API on http://localhost
 SERVER_PID=$!
 sleep 2 && ./scripts/walnut-demo-seed.sh  # agents, grants, workspace fixtures (no model calls)
 node scripts/walnut-demo-mint-runs.mjs    # stages the full scenario through the real services
-kill $SERVER_PID                          # restart — the running server caches store state
+kill $SERVER_PID; wait $SERVER_PID 2>/dev/null   # restart — the server caches store state
 node apps/server/dist/index.js &
 ```
 
