@@ -1,0 +1,625 @@
+/* Walnut's guided tour. Loaded after styles.css, so it inherits the app's tokens
+   (--ink, --muted, --line, --paper, --purple, --shadow) rather than redefining them. */
+
+.walnut-mark {
+  display: block;
+  flex: none;
+}
+
+/* -- welcome ------------------------------------------------------------------------------- */
+
+.walnut-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 22% 12%, rgba(105, 84, 217, 0.16), transparent 55%),
+    radial-gradient(circle at 82% 88%, rgba(176, 130, 79, 0.16), transparent 52%),
+    rgba(32, 33, 31, 0.55);
+  backdrop-filter: blur(6px);
+  animation: walnut-fade 260ms ease-out;
+}
+
+@keyframes walnut-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.walnut-welcome-card {
+  width: min(880px, 100%);
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.walnut-welcome-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 26px;
+  align-items: start;
+}
+
+.walnut-welcome-mark {
+  display: grid;
+  place-items: center;
+  width: 128px;
+  height: 128px;
+  border-radius: 26px;
+  background: linear-gradient(150deg, #f5efe6, #ede8ff);
+  border: 1px solid var(--line);
+  animation: walnut-rise 620ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes walnut-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+  }
+}
+
+.walnut-welcome-hero h1 {
+  margin: 10px 0 12px;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.walnut-welcome-hero p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.62;
+}
+
+.walnut-welcome-hero em {
+  color: var(--ink);
+  font-style: italic;
+}
+
+.walnut-welcome-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 30px 0 26px;
+}
+
+.walnut-welcome-item {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.walnut-welcome-item > span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--purple);
+}
+
+.walnut-welcome-item strong {
+  display: block;
+  margin: 6px 0 6px;
+  font-size: 14px;
+}
+
+.walnut-welcome-item p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.walnut-welcome-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.walnut-welcome-meta strong {
+  display: block;
+  font-size: 14px;
+}
+
+.walnut-welcome-meta span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.walnut-welcome-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* -- launcher ------------------------------------------------------------------------------ */
+
+.walnut-tour-launcher {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 16px 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 12px 30px rgba(39, 38, 33, 0.16);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.walnut-tour-launcher:hover {
+  border-color: var(--purple);
+}
+
+/* -- dock ---------------------------------------------------------------------------------- */
+
+.walnut-tour-dock {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  width: min(374px, calc(100vw - 44px));
+  max-height: min(78vh, 720px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: 0 26px 62px rgba(39, 38, 33, 0.2);
+  overflow: hidden;
+  animation: walnut-dock-in 300ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes walnut-dock-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.walnut-tour-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 14px 12px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff, var(--paper));
+}
+
+.walnut-tour-head-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.walnut-tour-head-copy strong {
+  display: block;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.walnut-tour-head-copy span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.walnut-tour-head > button {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.walnut-tour-head > button:hover {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.walnut-tour-progress {
+  display: flex;
+  gap: 3px;
+  padding: 10px 14px 0;
+}
+
+.walnut-tour-progress i {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.walnut-tour-progress i.done {
+  background: var(--purple);
+}
+
+.walnut-tour-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 16px 18px;
+}
+
+.walnut-tour-body h3 {
+  margin: 4px 0 8px;
+  font-size: 17px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+}
+
+.walnut-tour-say {
+  margin: 0 0 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.walnut-tour-todo {
+  padding: 11px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #d9d2ff;
+  border-left-width: 3px;
+  border-radius: 10px;
+  background: var(--purple-soft);
+}
+
+.walnut-tour-todo > span,
+.walnut-tour-why > span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--purple-dark);
+}
+
+.walnut-tour-todo p,
+.walnut-tour-why p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.walnut-tour-command {
+  display: block;
+  padding: 9px 11px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  color: var(--ink);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.walnut-tour-action {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.walnut-tour-why {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.walnut-tour-why > span {
+  color: var(--muted);
+}
+
+.walnut-tour-why p {
+  color: var(--muted);
+}
+
+.walnut-tour-note {
+  margin: 10px 0 0;
+  padding-left: 11px;
+  border-left: 2px solid #e0c9a4;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.walnut-tour-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+.walnut-tour-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.walnut-tour-pill-ok {
+  background: #e6f4ee;
+  border-color: #b8ded0;
+  color: #1f6b50;
+}
+
+.walnut-tour-pill-wait {
+  background: #f4f2ee;
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.walnut-tour-pill-neutral {
+  background: #fff;
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.walnut-tour-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.walnut-tour-features span {
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: help;
+}
+
+.walnut-tour-foot {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+
+.walnut-tour-link {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.walnut-tour-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.walnut-tour-nav .button {
+  min-height: 34px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+/* -- spotlight ----------------------------------------------------------------------------- */
+
+.walnut-tour-target {
+  position: relative;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 3px rgba(105, 84, 217, 0.28),
+    0 0 0 8px rgba(105, 84, 217, 0.1);
+  animation: walnut-ring 1.9s ease-in-out infinite;
+}
+
+@keyframes walnut-ring {
+  50% {
+    box-shadow:
+      0 0 0 4px rgba(105, 84, 217, 0.42),
+      0 0 0 12px rgba(105, 84, 217, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walnut-tour-target,
+  .walnut-welcome,
+  .walnut-welcome-mark,
+  .walnut-tour-dock {
+    animation: none;
+  }
+}
+
+/* -- coverage sheet ------------------------------------------------------------------------ */
+
+.walnut-coverage-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(32, 33, 31, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.walnut-coverage-sheet {
+  width: min(760px, 100%);
+  max-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.walnut-coverage-sheet > header {
+  display: flex;
+  gap: 16px;
+  align-items: start;
+  justify-content: space-between;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.walnut-coverage-sheet h2 {
+  margin: 6px 0 6px;
+  font-size: 22px;
+}
+
+.walnut-coverage-sheet header p {
+  margin: 0;
+  max-width: 58ch;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.walnut-coverage-sheet > header button {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.walnut-coverage-list {
+  margin: 0;
+  padding: 8px 12px 16px;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.walnut-coverage-list li {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.walnut-coverage-list li:last-child {
+  border-bottom: none;
+}
+
+.walnut-coverage-id {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.walnut-coverage-list strong {
+  display: block;
+  font-size: 13.5px;
+}
+
+.walnut-coverage-list p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.walnut-coverage-surface {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.walnut-coverage-live .walnut-coverage-surface {
+  background: #e6f4ee;
+  border-color: #b8ded0;
+  color: #1f6b50;
+}
+
+.walnut-coverage-seeded .walnut-coverage-surface {
+  background: var(--purple-soft);
+  border-color: #d9d2ff;
+  color: var(--purple-dark);
+}
+
+.walnut-coverage-absent .walnut-coverage-surface {
+  background: #fbeeee;
+  border-color: #e8c9c9;
+  color: #97403f;
+}
+
+@media (max-width: 720px) {
+  .walnut-welcome-card {
+    padding: 24px;
+  }
+
+  .walnut-welcome-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .walnut-welcome-hero h1 {
+    font-size: 27px;
+  }
+
+  .walnut-tour-dock {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
+    max-height: 72vh;
+  }
+
+  .walnut-coverage-list li {
+    grid-template-columns: 34px 1fr;
+  }
+
+  .walnut-coverage-surface {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* The Create Agent modal is reachable from a tour step, so it has to sit above the dock rather
+   than behind it -- the dock is full-width on narrow screens and would otherwise cover the form.
+   Scoped here so the upstream stylesheet stays untouched. */
+.modal-backdrop {
+  z-index: 85;
+}
