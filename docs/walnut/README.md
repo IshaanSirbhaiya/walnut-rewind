@@ -12,4 +12,4 @@ Files:
 
 Start with `00-START-HERE.md`.
 
-This bundle specifies the **full integrated Walnut Rewind** implementation for TechJam 2026 Track 1.
+This bundle specifies the **full integrated Walnut Rewind** implementation on the Volc Agent Launchpad starter kit.

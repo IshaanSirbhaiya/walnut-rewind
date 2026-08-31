@@ -38,7 +38,7 @@ YouTube as unlisted and use that link instead; verify either link in a logged-ou
 > new run linked to the old one — history is never rewritten. Built with IBM Bob as our
 > AI engineering partner across problem framing, architecture, implementation, testing, and demo
 > design (full account in the README), on top of the MIT-licensed Volc Agent Launchpad starter
-> kit. 233 automated tests including 22 named invariants; a judge can stage and explore the full
+> kit. 233 automated tests built around 22 documented invariants; a judge can stage and explore the full
 > demo scenario locally with no API key.
 
 ---

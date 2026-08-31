@@ -233,7 +233,7 @@ This is why Agent authorization is enforced before context injection, a boundary
 
 Walnut's full architecture uses valid time and transaction time.
 
-For TechJam:
+For this POC:
 
 ## Valid time
 When an Evidence claim is true/effective.
@@ -389,7 +389,7 @@ Never commit:
 - raw secrets in screenshots
 - raw secrets in evidence pack
 
-The Track 1 brief explicitly requires no secret in source, Git history, logs, traces, screenshots, browser storage, or demo output.
+The middleware brief explicitly requires no secret in source, Git history, logs, traces, screenshots, browser storage, or demo output.
 
 ---
 

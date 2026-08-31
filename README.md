@@ -7,8 +7,12 @@
 **Evidence-and-authorization middleware for AI agent platforms.**
 AI Builders Challenge with IBM Bob · **Wild Card Challenge — Intelligent Systems for the Future of Work** · August 2026.
 
-Built on the pristine [Volc Agent Launchpad starter kit](docs/UPSTREAM-README.md) (tag
-`starter-kit-baseline`); everything Walnut adds is visible as `git diff starter-kit-baseline`.
+Built on the pristine [Volc Agent Launchpad starter kit](docs/UPSTREAM-README.md); everything
+Walnut adds lives under `apps/server/src/walnut/` and `apps/web/src/walnut/` — upstream files
+carry only additive wiring, with the integration points enumerated in
+[`docs/walnut/03-STARTER-KIT-INTEGRATION.md`](docs/walnut/03-STARTER-KIT-INTEGRATION.md). (The
+private development history carried a `starter-kit-baseline` tag; this published repository is
+a fresh squashed history, so that tag is deliberately absent here.)
 
 ---
 

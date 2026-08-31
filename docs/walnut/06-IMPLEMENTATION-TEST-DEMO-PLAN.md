@@ -555,4 +555,4 @@ After hackathon:
 - cross-runtime adapters
 - graph storage at scale
 
-But these must remain future work, not required dependencies for the TechJam POC.
+But these must remain future work, not required dependencies for this POC.

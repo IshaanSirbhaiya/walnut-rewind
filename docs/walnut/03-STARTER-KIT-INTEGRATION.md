@@ -12,7 +12,7 @@ at commit:
 
 Re-check exact code before editing if repository state changes.
 
-The Track 1 brief explicitly names these as valid extension seams:
+The middleware brief explicitly names these as valid extension seams:
 - Fastify request boundary
 - `AgentService`
 - `AgentRunner`
@@ -581,7 +581,7 @@ Must continue to work:
 - local container execution
 - `npm run check`
 
-The Track 1 brief says not to start middleware changes until baseline works.
+The middleware brief says not to start middleware changes until baseline works.
 
 ---
 

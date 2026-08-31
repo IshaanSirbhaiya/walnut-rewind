@@ -27,12 +27,12 @@ secrets/
 **/*credential*
 
 # ── Organizer-supplied material ────────────────────────────────────────────────
-# brief/ holds the TikTok TechJam PDF and the problem-statement screenshots.
+# brief/ held the original problem-statement materials (internal working files, not published).
 # This material belongs to the organizers. Redistributing it in a PUBLIC
 # submission repository is Mehul's call, not an agent's — so the reversible
 # default is to ignore it. It stays on disk and stays readable by both agents;
 # it just does not ship. To include it, delete these two lines and record the
-# decision in coordination/DECISIONS.md.
+# decision in the internal working notes.
 brief/
 
 # ── Bulky run artifacts ────────────────────────────────────────────────────────

@@ -1,8 +1,8 @@
 # Walnut Rewind — Source Basis, Reused Ideas, and Locked Decisions
 
-# 1. Track 1 requirements used
+# 1. Middleware-brief requirements used
 
-From the TechJam 2026 Track 1 brief:
+From the original middleware brief:
 
 Starter Kit already provides:
 - browser UI
@@ -136,13 +136,13 @@ Actually implemented in that separate project:
 - Model Harness core
 - connector contract/reference adapter in progress/review
 
-Therefore TechJam implementation should **port principles and data shapes**, not pretend the whole DataBridge stack already exists.
+Therefore this implementation should **port principles and data shapes**, not pretend the whole DataBridge stack already exists.
 
 ---
 
 # 3. ProofGraph blueprint ideas reused
 
-From `track-1-walnut-starter-kit-blueprint.md`:
+From the internal Walnut starter-kit blueprint:
 
 Reused:
 - Codex JSONL stream as real observed Runtime boundary
@@ -331,4 +331,4 @@ Walnut Rewind is middleware for:
 
 You can paste the following into Claude/Codex after providing this bundle:
 
-> Implement Walnut Rewind in the TechJam 2026 Track 1 Starter Kit. Treat `00-START-HERE.md` as the canonical scope and the rest of this handoff bundle as the implementation specification. We are building the full integrated version, not the narrowed demo-only version. Preserve the existing Agent CRUD/lifecycle/Playground/Codex behavior. Build in layers: first Runtime evidence ledger and Context Capsule + authorization; then provenance/citations and Agent-to-Agent transfer; then dependency graph, evidence invalidation, blast radius, and reconciliation; then temporal/history UI, clarification, attestation/export if time permits. Do not silently drop features from the canonical scope—if something cannot be completed, leave a clearly marked interface/TODO and document the limitation. Prioritize correctness and automated invariants. Do not add heavy external services unless absolutely necessary.
+> Implement Walnut Rewind in the Agent Launchpad Starter Kit. Treat `00-START-HERE.md` as the canonical scope and the rest of this handoff bundle as the implementation specification. We are building the full integrated version, not the narrowed demo-only version. Preserve the existing Agent CRUD/lifecycle/Playground/Codex behavior. Build in layers: first Runtime evidence ledger and Context Capsule + authorization; then provenance/citations and Agent-to-Agent transfer; then dependency graph, evidence invalidation, blast radius, and reconciliation; then temporal/history UI, clarification, attestation/export if time permits. Do not silently drop features from the canonical scope—if something cannot be completed, leave a clearly marked interface/TODO and document the limitation. Prioritize correctness and automated invariants. Do not add heavy external services unless absolutely necessary.

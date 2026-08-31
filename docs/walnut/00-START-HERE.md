@@ -1,8 +1,8 @@
-# Walnut Rewind — Full Integrated Track 1 Handoff
+# Walnut Rewind — Full Integrated Handoff
 
 ## Purpose of this bundle
 
-This bundle is the canonical handoff for implementing the **full integrated version of Walnut Rewind** for **TikTok TechJam 2026 Track 1 — Agent Launchpad: Design and Build Lightweight Agent Middleware**.
+This bundle is the canonical handoff for implementing the **full integrated version of Walnut Rewind** — lightweight agent middleware on the **Volc Agent Launchpad starter kit**.
 
 This is **not** the narrowed presentation-only version.
 
@@ -268,9 +268,9 @@ This is the story.
 
 ---
 
-# Track 1 fit
+# Middleware-brief fit
 
-The Track 1 brief explicitly says the Starter Kit already provides:
+The middleware brief explicitly says the Starter Kit already provides:
 - React UI
 - Agent CRUD
 - Playground
@@ -348,7 +348,7 @@ What we can honestly claim:
 # Source basis
 
 This bundle was synthesized from:
-- TikTok TechJam 2026 Track 1 problem statement in `TikTok_TechJam_2026_Tracks_and_Problem_Statements.pdf`
+- The original middleware problem statement (internal working materials, not published)
 - `00-EXECUTIVE-OVERVIEW.md`
 - `01-PROBLEM-AND-POSITIONING.md`
 - `02-ARCHITECTURE-AND-SYSTEM-DESIGN.md`
@@ -358,7 +358,7 @@ This bundle was synthesized from:
 - `06-HARNESS-GOVERNANCE-INVARIANTS.md`
 - `07-USE-CASES-AND-COMPLIANCE.md`
 - `08-BUILD-STATUS.md`
-- `track-1-walnut-starter-kit-blueprint.md`
+- the internal Walnut starter-kit blueprint (working notes, not published)
 - `TRACK1-SOLUTION-WALNUT-MIDDLEWARE.md`
 
 The attached starter-kit blueprints inspected `RrankPyramid/CodeJam` at commit:

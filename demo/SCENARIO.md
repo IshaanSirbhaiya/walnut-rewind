@@ -32,7 +32,7 @@ append-only history, tamper evidence exist).
 
 | # | Beat | What the audience verifiably sees | Features |
 |---|---|---|---|
-| B0 | Baseline | CRUD/Playground still work; Walnut is **additive middleware** (not "unmodified" — upstream files carry additive wiring; `git diff starter-kit-baseline --stat` is the receipt) | HC-1 |
+| B0 | Baseline | CRUD/Playground still work; Walnut is **additive middleware** (not "unmodified" — upstream files carry additive wiring; all Walnut code lives under `apps/server/src/walnut/` and `apps/web/src/walnut/`, integration points enumerated in `docs/walnut/03-STARTER-KIT-INTEGRATION.md`) | HC-1 |
 | B1 | **Research run — truth intake** | Two files written; outbox proposes: launch-date claim (**VERIFIED** — byte-match), payroll claim (**stored with its canary — deliberately**: the proof is stored ≠ rendered, INV-2), and one bad-anchor claim → **rejected `citation_mismatch`**, visible as a redacted `evidence.proposal_rejected` ledger event **(X6; until X6 lands this beat cites the INV-5 tests instead)**. Evidence card shows the claim + source pointer (locator/hash/offsets — pointer, not payload) | F5, F6 (+ negative w/ X6), F8, F10; F7 via X6's run-event surface |
 | B2 | **The date slips** | A second independent Oct-15 claim while Oct-1 is ACTIVE → next Strategy run **blocked before any model call** with a typed `ClarificationRequest` (question text in `run.error` in the Playground; full typed request at `GET /api/walnut/clarifications`, and in the drawer if X5 lands). **Conflict remediation** (not "resolution"): the operator **revokes** the stale Oct-1 claim (append-only correction) → the *conflict* is gone and the next run proceeds — but the persisted `ClarificationRequest` itself **remains OPEN**: v1 has no HTTP resolve route/action, and the demo says so plainly (B-018/B-019; X5 may optionally add a resolve action — until then, never narrate the request as "resolved"). **SUPERSEDED** is demonstrated separately on the pricing claim via a staged proposal that declares `supersedesEvidenceId` (the write service requires the replacement to declare it — `evidence-write-service.ts:286-308`) | F22, F12 (REVOKED + SUPERSEDED), F15 (valid-time vs belief-time on the date claims) |
 | B3 | **Strategy run + the delegation kicker** | Capsule: launch in, payroll **DENIED `AGENT_SCOPE_MISSING`** — decision recorded with policy revision. Kicker (F3, via the share path since runs execute with `principalId: null` — `agent-service.ts`): grant Strategy an agent-leg `share` grant, then attempt a payroll share **as `user:mehul`** → sender DENY **`PRINCIPAL_SCOPE_MISSING`** — *the agent's own grant was insufficient to exceed its human's authority* (`share-service.ts` → two-leg `evaluator.ts`) | F1, F2, F3, F16, F21 (attestation) |
@@ -75,39 +75,45 @@ BLAST RADIUS → REWIND → TAMPER-EVIDENT — each naming the practical questio
 pointing at the live Walnut tab/action. **Constraint (truthfulness rule): it renders live values
 for the selected run and never fakes completion**; industrial visual language intact.
 
-## Fit to the judging brief (Mehul 2026-08-28: *"make sure you account the hackathon criteria and just waht the genereal techjam requirements or expectations are"*)
+## Fit to the judging brief
 
-Sources: `brief/TikTok_TechJam_2026_Tracks_and_Problem_Statements.pdf` §§1.9–1.12 and
+Sources: the AI Builders Challenge Wild Card brief (judging criteria: Technical Execution,
+Innovation, Challenge Fit, Feasibility, Real-World Impact) and
 `docs/walnut/06-IMPLEMENTATION-TEST-DEMO-PLAN.md` §10.
 
-**Evaluation criteria (1.11) → where this scenario scores:**
+**Judging criteria → where this scenario scores:**
 
-| Criterion | Weight | How the scenario serves it |
-|---|---|---|
-| End-to-end middleware behavior — *"a real frontend-to-backend, Runtime, data, or infrastructure path with convincing functional evidence"* | **40%** | The **scenario spine** (B1 → B3 → B5 → B6) proves the full live path (React → Fastify → AgentService → broker → capsule → Codex runner → JSONL → ledger → graph → reconcile); the sidecars prove their **actual** backend paths — the clarification beat stops deliberately *pre-model*, the share kicker exercises the evaluator via the API, audit reads invoke no runner. Nothing is a static screen; X6 makes the flight-recorder path *inspectable*, not count-only |
-| Technical design and integration — *"clear rationale, coherent architecture, appropriate boundary, focused changes, extensible contracts"* | **25%** | One coherent story (not 23 disconnected demos — exactly what §1.12 warns against); four-plane boundary narrated in B0/B3; frozen specs = extensible contracts; `git diff starter-kit-baseline --stat` = focused changes |
-| Verification and robustness — *"automated tests, error handling, cleanup or recovery, redaction, protection against obvious bypasses"* | **20%** | The negative beats are the stars: denial (B3), typed clarification instead of a silent pick (B2), citation rejection (B1/X6), compromise→taint→recover (B5/B6), tamper evidence (B7); 232 automated tests cited in the proof map |
-| Demo and reproducibility — *"concise live demo, useful README, one-command startup, documented limitations, no hidden manual setup"* | **15%** | Tier 1 **targets** ≤3 min (unmeasured until X4's timed live-UI rehearsal — B-017 Q5) and is concise **by design** (sidecars pushed to Tier 2); walkthrough is judge-runnable; seed v2 (X2) removes hidden manual setup; README §15 limitations already a gate item |
+| Criterion | How the scenario serves it |
+|---|---|
+| **Technical Execution** | The **scenario spine** (B1 → B3 → B5 → B6) proves the full path (React → Fastify → AgentService → broker → capsule → runner → JSONL → ledger → graph → reconcile); the sidecars prove their **actual** backend paths — the clarification beat stops deliberately *pre-model*, the share kicker exercises the evaluator via the API, audit reads invoke no runner. Nothing is a static screen; 233 automated tests stand behind the beats |
+| **Innovation** | One coherent story built on the capsule/lockfile primitive — authorize-before-assembly, byte-exact citations, selective Rewind — not 23 disconnected feature demos |
+| **Challenge Fit** | A cross-functional launch team with three AI co-workers: role-scoped knowledge, an auditable decision record, and selective redo when a fact changes — the Future-of-Work story told through working middleware |
+| **Feasibility** | Judge-runnable: seed + offline staging with no API key (README §10), one-command check gate, documented limitations (README §15), no hidden manual setup |
+| **Real-World Impact** | The negative beats are the stars: denial (B3), typed clarification instead of a silent pick (B2), citation rejection (B1/X6), compromise→taint→recover (B5/B6), tamper evidence (B7) — the failures teams actually hit |
 
-**Required deliverables (1.9):**
+**Demo shape:** Tier 1 targets ≤3 min and shows one real Agent Run in its normal case **plus**
+failure/denial/recovery cases (normal B1/B3 · denial B3 · recovery B6 · tamper B7). The
+architecture one-pager with the explicit trust boundary is README §4.1.
 
-1. *3-min live demo showing one real Agent Run in its normal case **and** a failure/denial/recovery case* — Tier 1 shows normal (B1/B3), denial (B3), recovery (B6), tamper (B7): over-delivers on the "appropriate failure" requirement.
-2. *One-page architecture diagram — middleware, data flow, **trust boundary**, and enforcement/instrumentation/recovery point* — README §4's ASCII diagram covers flow + the authorize-before-assembly enforcement point but does **not** mark the trust boundary explicitly and is not a standalone page → **new work item X8**.
-3. *Repo with setup, problem/rationale, design summary, tests, demo steps, limitations, no secrets* — present (README §§1–17); X3's feature-relevance map strengthens rationale.
+**Additional evidence the scenario ticks** (mirrored in the README's appendix table):
 
-**Optional-evidence checkboxes (1.10) — the scenario ticks all four; the README should say so
-in one explicit table (folds into X3):**
+- ✅ *Delegated permission scoped or revocable, enforced outside the UI* — B3's
+  `PRINCIPAL_SCOPE_MISSING` share kicker: a scoped permission enforced in the real two-leg
+  evaluator, no UI involved (revocation itself stays proof-map-only per the sidecar decision).
+- ✅ *End-to-end Run produces a correlated trace* — per-Run hash-chained ledger + capsule +
+  attestation, correlated by run id (B1/B7, X6).
+- ✅ *A defined threat is blocked or contained, the protected asset unchanged, recovery
+  demonstrated* — one coherent proof (B5→B6): the threat is **compromised launch evidence**;
+  it is *contained* by tainting/blast radius, the *protected asset* — the append-only
+  historical record (old run, capsule, chain) — remains unchanged, and *recovery* is a new
+  Strategy run linked `RECOVERED_BY`.
+- ✅ *Team-defined lifecycle capability works as described* — the evidence lifecycle
+  (ACTIVE→REVOKED/SUPERSEDED/COMPROMISED) + selective reconciliation.
 
-- ✅ *Delegated permission scoped or revocable, enforced outside the UI, demonstrated* — B3's `PRINCIPAL_SCOPE_MISSING` share kicker: a scoped permission enforced in the real two-leg evaluator, no UI involved (revocation itself stays proof-map-only per the sidecar decision).
-- ✅ *End-to-end Run produces a correlated trace with model/tool/policy events* — per-Run hash-chained ledger + capsule + attestation, correlated by run id (B1/B7, X6).
-- ✅ *A defined threat is blocked or contained, the protected asset unchanged, cleanup/recovery demonstrated* — one coherent proof (B5→B6): the threat is **compromised launch evidence**; it is *contained* by tainting/blast radius, the *protected asset* — the append-only historical record (old run, capsule, chain) — remains unchanged, and *recovery* is a new Strategy run linked `RECOVERED_BY`.
-- ✅ *Team-defined lifecycle/reliability capability works as described* — the evidence lifecycle (ACTIVE→REVOKED/SUPERSEDED/COMPROMISED) + selective reconciliation.
-
-**Scope-guidance alignment (1.12):** *"Depth, coherence, and relevance matter more than the
-number of example features"* — this is the argument **for** the two-tier shape; *"controlled
-fixtures are encouraged"* — X2 is sanctioned; *"a polished UI does not count as middleware"* —
-X7's proof rail is presentation over live backend state, never the capability itself (every
-proof beat's behavior has a server-side test per HC-2).
+**Scope guidance:** depth, coherence, and relevance matter more than feature count — that is
+the argument **for** the two-tier shape; controlled fixtures are deliberate; a polished UI does
+not count as middleware — the proof rail is presentation over live backend state, never the
+capability itself (every proof beat's behavior has a server-side test per HC-2).
 
 ## Work items
 

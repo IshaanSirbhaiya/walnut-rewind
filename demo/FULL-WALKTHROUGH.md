@@ -8,8 +8,10 @@ end-to-end rehearsal on 2026-08-28 — evidence with real ids and token counts:
 
 Conventions: `$BASE` = `http://localhost:3000`. Ids differ per seed — capture them as you go
 (each step says which). Steps are API-driven and self-verifying; **UI pointers name where the
-same state is visible in the drawer, but no browser output is asserted here** (the live visual
-pass is a separate gate item). F-numbers = feature map, README §18.
+same state is visible in the drawer, but no browser output is asserted here** (the visual pass
+through the live UI was completed separately on 2026-08-31). F-numbers = feature map, README
+§18. This walkthrough drives the live-model path; for the no-API-key offline path judges can
+run instead, see README §10's judge quickstart.
 
 ## 0. Pre-flight (once)
 
@@ -26,7 +28,7 @@ npm run poc          # wait for /api/health = 200; /api/system must show "arkMod
 ## 1. B0 — baseline intact (HC-1)
 
 `GET $BASE/api/agents` lists the seeded agents; the Playground chats normally. Walnut is
-additive middleware — `git diff starter-kit-baseline --stat` is the receipt.
+additive middleware — all Walnut code lives under `apps/server/src/walnut/` and `apps/web/src/walnut/`; the integration points are enumerated in `docs/walnut/03-STARTER-KIT-INTEGRATION.md`.
 
 ## 2. B1 — Research run: truth intake (F5, F6±, F7, F8, F10)
 
@@ -185,7 +187,7 @@ curl -sS $BASE/api/walnut/clarifications   # the request is still OPEN — v1 ha
 ```
 
 *UI pointer (F19): the four drawer tabs + the scenario proof rail carry every state above live;
-that rendering is the pending visual-pass gate item, not asserted here.*
+that rendering passed the visual pass on 2026-08-31 and appears in the demo video.*
 
 ## 10. What is deliberately NOT shown live
 

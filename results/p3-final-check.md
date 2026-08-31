@@ -41,3 +41,21 @@ Referenced by README §12. All commands run at commit `292d865` (tip of the Phas
 - Repo flip to public + history scrub of the endpoint id (Mehul's call, BLOCKER-2).
 - External submission deadline still unconfirmed (BLOCKER-1).
 - Codex return-review queue: every `[relay]` item across P1–P3 (CHANNEL A-014…A-018).
+
+---
+
+## Submission-time addendum (2026-08-31, public repository)
+
+Appended at publication of the public repository — the record above is preserved verbatim as
+the pre-publication gate snapshot from the private development history.
+
+- The `starter-kit-baseline` tag and `coordination/` working notes referenced above belong to
+  the private development history; this public repository was published as a fresh squashed
+  history, so neither exists here (which is also why commit `292d865` does not appear in this
+  repository's log).
+- Test count at submission, from a live run on the published tree: **27 files / 233 tests**
+  (the 215 figure above predates the final test additions).
+- The "history scrub before the repository flips public" item above was resolved by the
+  fresh-history publication; the submission-time sweep over the published tree and full public
+  history found no key material and no real endpoint identifier.
+- Submission logistics are tracked in `SUBMISSION.md`.
